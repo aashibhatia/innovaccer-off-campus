@@ -1,39 +1,29 @@
-import pymysql
+import mysql.connector
+import reminder
 
-server_name = 'http://localhost:2000'
-user = 'root'
-password = 'pass'
-name = 'test'
-charset = 'utf8mb4'
-cursor_type = pymysql.cursors.DictCursor
+def store_in_database(email, tv_series):
+    mydb = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='password',
+        database='reminder'
+    )
 
-connection = pymysql.connect(host=server_name,
-                             user=user,
-                             password=password,
-                             db=name,
-                             charset=charset,
-                             cursorclass=cursor_type)
+    # print(mydb)
+    mycursor = mydb.cursor()
+    # Create database 'reminder'
+    # mycursor.execute("CREATE DATABASE reminder")
+    mycursor.execute("CREATE TABLE customer (email VARCHAR(255), series VARCHAR(255))")
 
-try:
-    cursorObj = connection.cursor()
+    # check existing databases
+    # mycursor.execute("SHOW DATABASES")
+    # for x in mycursor:
+        # print(x)
 
-    # SQL query string
-    sql_query = "CREATE TABLE Details(Email varchar(32), TV-Series varchar(32))"
+    sql = "INSERT INTO reminder (email, series) VALUES (%s, %s)"
+    val = (email, tv_series)
+    mycursor.execute(sql, val)
 
-    # Execution of SQL query
-    cursorObj.execute(sql_query)
-
-    sql_query = "show tables"
-    cursorObj.execute(sql_query)
-
-    # Fetch rows
-    rows = cursorObj.fetchall()
-
-    for row in rows:
-        print(row)
-
-except Exception as e:
-    print("Exception occurred: {}".format(e))
-
-finally:
-    connection.close()
+    # Commit current transaction
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")

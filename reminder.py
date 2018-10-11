@@ -3,6 +3,7 @@ import urllib.request as urllib2
 from imdb import IMDb
 
 import requests
+import sqlconnect
 
 results = []
 names = []
@@ -62,6 +63,7 @@ def start():
             status = 'The season will start in the year {}'.format(year)
             results.append(status)
 
+    # sqlconnect.store_in_database(email, series)
     return results
 
 def get_series_id():
