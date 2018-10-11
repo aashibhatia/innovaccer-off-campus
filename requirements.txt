@@ -1,4 +1,4 @@
-pip install mysqlclient
-pip install mysql-connector==2.1.4
-sudo pip install MySQL-connector-python
-
+requests==2.18.4
+beautifulsoup4==4.6.3
+IMDbPY==6.6
+mysql_connector_repackaged==0.3.1
