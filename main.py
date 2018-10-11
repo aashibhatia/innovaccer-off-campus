@@ -11,7 +11,6 @@ receiver = 'harshit.codepy@gmail.com'
 
 name = reminder.get_series()
 messages = []
-j = 0
 
 for i in range(0, len(tv_series_status)):
     message = name[i] + ': ' + tv_series_status[i]
